@@ -1,5 +1,7 @@
 # progetto_ps2
-Progetto Procedural and Spatial Sound \n
-Author: Paolo Bianchessi 99159A \n\n
+Progetto Procedural and Spatial Sound 
+
+Author: Paolo Bianchessi 99159A 
+
 
 Software used: Godot, PureData
