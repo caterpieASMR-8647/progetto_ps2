@@ -1,0 +1,565 @@
+[gd_scene format=4 uid="uid://c31enl711pghl"]
+
+[ext_resource type="Script" uid="uid://dh2xchvmafqk7" path="res://Scripts/handleCollision.gd" id="1_a3v7h"]
+[ext_resource type="PackedScene" uid="uid://ly407qji56mv" path="res://player.tscn" id="2_3p0ik"]
+[ext_resource type="PackedScene" uid="uid://1d2dex2amtbk" path="res://Scenes/menu.tscn" id="3_3p0ik"]
+[ext_resource type="PackedScene" uid="uid://jkqidrlcts43" path="res://Objects/bottle.tscn" id="3_hjw3j"]
+[ext_resource type="PackedScene" uid="uid://dcoqa8j8uv7i3" path="res://Objects/wrench.tscn" id="5_hjw3j"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_xtb1e"]
+sky_top_color = Color(0.21661699, 0.21204627, 0.15606436, 1)
+sky_horizon_color = Color(0.42301226, 0.40757132, 0.39865798, 1)
+ground_bottom_color = Color(0.21327496, 0.15608194, 0.17641047, 1)
+ground_horizon_color = Color(0.42301226, 0.40757132, 0.39865798, 1)
+
+[sub_resource type="Sky" id="Sky_dn5c8"]
+sky_material = SubResource("ProceduralSkyMaterial_xtb1e")
+
+[sub_resource type="Environment" id="Environment_5lfti"]
+background_mode = 2
+sky = SubResource("Sky_dn5c8")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5lfti"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xd2r4"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_wtdyi"]
+friction = 0.6
+bounce = 1.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_xd2r4"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_xd2r4"]
+radial_segments = 32
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xd2r4"]
+size = Vector3(15, 1, 15)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xd2r4"]
+albedo_color = Color(0.291412, 0.4891323, 0.41099274, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_dn5c8"]
+size = Vector3(1, 2, 5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jgdxq"]
+size = Vector3(1, 0.025, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_sbvtr"]
+size = Vector3(1, 0.475, 0.025)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fl65m"]
+size = Vector3(0.025, 0.475, 1.45)
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_dn5c8"]
+_surfaces = [{
+"aabb": AABB(-0.5, -0.25, -0.75, 1, 0.5, 1.5),
+"attribute_data": PackedByteArray("AACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAAAAAAAAAAAAAAAAAgD8AAIA/AACAPwAAgD+8u3s/mpl5PwAAAAAAAIA/AACAPwAAgD8AAIA/AAAAALy7ez+amXk/AACAPwAAgD8AAAAAAAAAAAAAAAAAAIA/AAAAAAAAgD+8u3s/mpl5P4CIiDyamXk/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAAAAAAAAgD+AiIg8mpl5P4CIiDzQzMw8AAAAAAAAAAAAAAAAAACAPwAAgD8AAIA/AACAPwAAgD8AAAAAAAAAAAAAAAAAAIA/AACAPwAAgD8AAIA/AAAAAAAAAAAAAAAAAACAPwAAgD8AAAAAAAAAAAAAAAAAAIA/AACAPwAAAAC8u3s/0MzMPLy7ez+amXk/AACAPwAAgD8AAAAAAAAAAAAAAAAAAIA/AACAPwAAAACAiIg80MzMPLy7ez/QzMw8AAAAAAAAgD+AiIg80MzMPAAAAAAAAAAAAACAPwAAAAAAAAAAAAAAAICIiDzQzMw8AACAPwAAAAAAAIA/AACAPxTOhT0AAAAAAACAPwAAAAAAAIA/AACAPwAAAAAAAAAAAACAPwAAgD8AAAAAAACAPwAAgD8UzoU9AACAPwAAAAAAAIA/PUZvPwAAAAA9Rm8/AACAPwAAgD8UzoU9AACAPxTOhT0AAAAAAACAPwAAAAAAAAAAPUZvPwAAAAAAAAAAAAAAAAAAAAAAAIA/AACAPwAAAAAAAIA/AACAPwAAgD8UzoU9AAAAAAAAgD8AAAAAAACAPwAAgD8UzoU9AACAPxTOhT0AAAAAAAAAAAAAgD8AAAAAFM6FPQAAgD8UzoU9"),
+"format": 34359738391,
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 84,
+"vertex_data": PackedByteArray("AAAAvwAAgL4AAEC/AAAAvwAAgD4AAEC/AAAAvwAAgL4AAEA/AAAAvwAAgL4AAEC/AAAAvwAAgL4AAEA/AAAAPwAAgL4AAEC/AAAAvwAAgL4AAEC/AAAAPwAAgL4AAEC/AAAAvwAAgD4AAEC/AAAAvwAAgD4AAEC/MzPzvgAAgD6amTm/AAAAvwAAgD4AAEA/AAAAvwAAgD4AAEC/AAAAPwAAgD4AAEC/MzPzvgAAgD6amTm/AAAAvwAAgL4AAEA/AAAAvwAAgD4AAEC/AAAAvwAAgD4AAEA/AAAAvwAAgD4AAEA/MzPzvgAAgD6amTm/MzPzvgAAgD6amTk/AAAAvwAAgL4AAEA/AAAAvwAAgD4AAEA/AAAAPwAAgD4AAEA/AAAAvwAAgD4AAEA/MzPzvgAAgD6amTk/MzPzPgAAgD6amTk/AAAAvwAAgL4AAEA/AAAAPwAAgL4AAEA/AAAAPwAAgL4AAEC/AAAAvwAAgL4AAEA/AAAAPwAAgD4AAEA/AAAAPwAAgL4AAEA/AAAAPwAAgL4AAEC/AAAAPwAAgL4AAEA/AAAAPwAAgD4AAEA/AAAAvwAAgD4AAEC/AAAAPwAAgL4AAEC/AAAAPwAAgD4AAEC/AAAAPwAAgD4AAEC/MzPzPgAAgD6amTm/MzPzvgAAgD6amTm/AAAAPwAAgL4AAEC/AAAAPwAAgD4AAEA/AAAAPwAAgD4AAEC/AAAAPwAAgD4AAEC/MzPzPgAAgD6amTk/MzPzPgAAgD6amTm/AAAAvwAAgD4AAEA/MzPzPgAAgD6amTk/AAAAPwAAgD4AAEA/AAAAPwAAgD4AAEC/AAAAPwAAgD4AAEA/MzPzPgAAgD6amTk/MzPzvmRmZr6amTm/MzPzvmRmZr6amTk/MzPzvgAAgD6amTm/MzPzvmRmZr6amTm/MzPzPmRmZr6amTm/MzPzvmRmZr6amTk/MzPzvmRmZr6amTk/MzPzPmRmZr6amTk/MzPzvgAAgD6amTk/MzPzvmRmZr6amTm/MzPzvgAAgD6amTm/MzPzPgAAgD6amTm/MzPzvmRmZr6amTk/MzPzvgAAgD6amTk/MzPzvgAAgD6amTm/MzPzvmRmZr6amTm/MzPzPgAAgD6amTm/MzPzPmRmZr6amTm/MzPzvmRmZr6amTk/MzPzPmRmZr6amTm/MzPzPmRmZr6amTk/MzPzPmRmZr6amTm/MzPzPgAAgD6amTk/MzPzPmRmZr6amTk/MzPzPmRmZr6amTm/MzPzPgAAgD6amTm/MzPzPgAAgD6amTk/MzPzPmRmZr6amTk/MzPzPgAAgD6amTk/MzPzvgAAgD6amTk/AAD/f/9//n8AAP9//3/+fwAA/3//f/5//38AAP//AAD/fwAA//8AAP9/AAD//wAA/////wAA/z//////AAD/P/////8AAP8//3///wAAAAD/f///AAAAAP9//////wAA/3///wAAAAD/f///AAAAAP9///8AAAAAAAD/f/9//n8AAP9//3/+fwAA/3//f/5//3//////AAD/f///AAAAAP9//////wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8//3//////AAD/f/////8AAP9//////wAA/38AAP//AAD/fwAA//8AAP9/AAD//wAA/3//fwAA/z//f/9/AAD/P/9//38AAP8/////f/9//n////9//3/+f////3//f/5//////wAA/z//////AAD/P/////8AAP8//3///wAAAAD/f/////8AAP9///8AAAAA////f/9//n////9//3/+f////3//f/5//3///wAAAAD/f/////8AAP9//////wAA/3//////AAD/f/////8AAP9//////wAA/3///wAAAAD/f/////8AAP9//////wAA////f/9/AID///9//38AgP///3//fwCA/3//////////f/////////9//////////////wAA/7//////AAD/v/////8AAP+//3//fwAA/7//f/9/AAD/v/9//38AAP+/////f/9/AID///9//38AgP///3//fwCA/3//fwAA/7//f/9/AAD/v/9//38AAP+//3//////////f/////////9/////////AAD/f/9/AIAAAP9//38AgAAA/3//fwCAAAD/f/9/AIAAAP9//38AgAAA/3//fwCA/////wAA/7//////AAD/v/////8AAP+/")
+}]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xtb1e"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_jgdxq"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_xd2r4"]
+
+[node name="Node3D" type="Node3D" unique_id=1900337338]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1278983670]
+environment = SubResource("Environment_5lfti")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1888594540]
+transform = Transform3D(0.9659258, -1.4393416e-08, 0.25881904, -0.1830127, 0.70710677, 0.6830127, -0.18301271, -0.7071068, 0.68301266, 0, 0, 0)
+light_color = Color(0.84, 0.82067996, 0.6468, 1)
+shadow_enabled = true
+shadow_bias = 0.05
+shadow_blur = 0.75
+
+[node name="Cube" type="RigidBody3D" parent="." unique_id=411651589]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.814, 0.5, 0)
+disable_mode = 1
+collision_layer = 3
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Cube" unique_id=671607523]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Cube" unique_id=414397162]
+shape = SubResource("BoxShape3D_5lfti")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cube/CollisionShape3D" unique_id=2118138330]
+mesh = SubResource("BoxMesh_xd2r4")
+
+[node name="Sphere" type="RigidBody3D" parent="." unique_id=667373078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.616808, -2.4599328)
+disable_mode = 1
+collision_layer = 3
+physics_material_override = SubResource("PhysicsMaterial_wtdyi")
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Sphere" unique_id=156721473]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sphere" unique_id=1476266834]
+shape = SubResource("SphereShape3D_xd2r4")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Sphere/CollisionShape3D" unique_id=1425090437]
+mesh = SubResource("SphereMesh_xd2r4")
+
+[node name="Pavement" type="Area3D" parent="." unique_id=80228447]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Pavement" unique_id=2087817331]
+shape = SubResource("BoxShape3D_xd2r4")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Pavement/CollisionShape3D" unique_id=834002287]
+use_collision = true
+size = Vector3(15, 1, 15)
+material = SubResource("StandardMaterial3D_xd2r4")
+
+[node name="Wall" type="Area3D" parent="." unique_id=777913205]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.874463, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Wall" unique_id=155157202]
+shape = SubResource("BoxShape3D_dn5c8")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Wall/CollisionShape3D" unique_id=1775494237]
+use_collision = true
+size = Vector3(1, 2, 5)
+material = SubResource("StandardMaterial3D_xd2r4")
+
+[node name="Player" parent="." unique_id=454658066 instance=ExtResource("2_3p0ik")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0066263676, 0.034802437, 3.0070615)
+menu = ExtResource("3_3p0ik")
+
+[node name="Box" type="RigidBody3D" parent="." unique_id=649179987]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31741014, 0)
+disable_mode = 1
+collision_layer = 3
+mass = 5.0
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Box" unique_id=212444132]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Box" unique_id=217939708]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.23823242, 0)
+shape = SubResource("BoxShape3D_jgdxq")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Box" unique_id=1111410367]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.01323238, -0.738)
+shape = SubResource("BoxShape3D_sbvtr")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Box" unique_id=1867008188]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.013, 0.738)
+shape = SubResource("BoxShape3D_sbvtr")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="Box" unique_id=541738132]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.487, 0.013, 0)
+shape = SubResource("BoxShape3D_fl65m")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="Box" unique_id=663643098]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.487, 0.013, 0)
+shape = SubResource("BoxShape3D_fl65m")
+
+[node name="CSGBakedMeshInstance3D" type="MeshInstance3D" parent="Box" unique_id=1202399505]
+mesh = SubResource("ArrayMesh_dn5c8")
+
+[node name="Node3D" type="Node3D" parent="Box" unique_id=1264726730]
+
+[node name="MiniCubes" type="Node3D" parent="." unique_id=1896035584]
+
+[node name="Cube2" type="RigidBody3D" parent="MiniCubes" unique_id=1281951985]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33790362, 0)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube2" unique_id=507157359]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube2" unique_id=623049780]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube2/CollisionShape3D" unique_id=283387953]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube3" type="RigidBody3D" parent="MiniCubes" unique_id=503506841]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15789694, 0.33790362, 0)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube3" unique_id=867510732]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube3" unique_id=1625327893]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube3/CollisionShape3D" unique_id=653096947]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube4" type="RigidBody3D" parent="MiniCubes" unique_id=1478573351]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3100798, 0.33790362, 0)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube4" unique_id=1366332311]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube4" unique_id=12986298]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube4/CollisionShape3D" unique_id=997216540]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube5" type="RigidBody3D" parent="MiniCubes" unique_id=366388687]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30790392, 0.33790362, 0)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube5" unique_id=216303674]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube5" unique_id=116588303]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube5/CollisionShape3D" unique_id=1239380518]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube6" type="RigidBody3D" parent="MiniCubes" unique_id=190784673]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15572104, 0.33790362, 0)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube6" unique_id=793150162]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube6" unique_id=1144739597]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube6/CollisionShape3D" unique_id=1329014181]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube7" type="RigidBody3D" parent="MiniCubes" unique_id=1056940924]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33790362, -0.20920919)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube7" unique_id=59026118]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube7" unique_id=1038228190]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube7/CollisionShape3D" unique_id=1555110431]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube8" type="RigidBody3D" parent="MiniCubes" unique_id=1730599373]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15789694, 0.33790362, -0.20920919)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube8" unique_id=1823963231]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube8" unique_id=1967680693]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube8/CollisionShape3D" unique_id=266859060]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube9" type="RigidBody3D" parent="MiniCubes" unique_id=1584445865]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3100798, 0.33790362, -0.20920919)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube9" unique_id=552237827]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube9" unique_id=1493623033]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube9/CollisionShape3D" unique_id=1006944265]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube10" type="RigidBody3D" parent="MiniCubes" unique_id=749803991]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30790392, 0.33790362, -0.20920919)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube10" unique_id=544067768]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube10" unique_id=957990624]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube10/CollisionShape3D" unique_id=1777792201]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube11" type="RigidBody3D" parent="MiniCubes" unique_id=173745391]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15572104, 0.33790362, -0.20920919)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube11" unique_id=85231067]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube11" unique_id=1105729358]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube11/CollisionShape3D" unique_id=657484951]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube12" type="RigidBody3D" parent="MiniCubes" unique_id=1822729109]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33790362, -0.44602123)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube12" unique_id=2128995598]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube12" unique_id=127838777]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube12/CollisionShape3D" unique_id=742979276]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube13" type="RigidBody3D" parent="MiniCubes" unique_id=265559695]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15789694, 0.33790362, -0.44602123)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube13" unique_id=2101629375]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube13" unique_id=2060508503]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube13/CollisionShape3D" unique_id=929884622]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube14" type="RigidBody3D" parent="MiniCubes" unique_id=1006587491]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3100798, 0.33790362, -0.44602123)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube14" unique_id=1353485793]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube14" unique_id=86664622]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube14/CollisionShape3D" unique_id=828235663]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube15" type="RigidBody3D" parent="MiniCubes" unique_id=1729018459]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30790392, 0.33790362, -0.44602123)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube15" unique_id=982312453]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube15" unique_id=114223013]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube15/CollisionShape3D" unique_id=297447778]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube16" type="RigidBody3D" parent="MiniCubes" unique_id=1578796271]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15572104, 0.33790362, -0.44602123)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube16" unique_id=1155765283]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube16" unique_id=683012333]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube16/CollisionShape3D" unique_id=1191375172]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube17" type="RigidBody3D" parent="MiniCubes" unique_id=177112364]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33790362, 0.22163531)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube17" unique_id=895578655]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube17" unique_id=2115420687]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube17/CollisionShape3D" unique_id=1191096637]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube18" type="RigidBody3D" parent="MiniCubes" unique_id=968163203]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15789694, 0.33790362, 0.22163531)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube18" unique_id=1090485028]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube18" unique_id=575592175]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube18/CollisionShape3D" unique_id=1969692358]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube19" type="RigidBody3D" parent="MiniCubes" unique_id=1716043584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3100798, 0.33790362, 0.22163531)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube19" unique_id=96881354]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube19" unique_id=417510314]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube19/CollisionShape3D" unique_id=1360388849]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube20" type="RigidBody3D" parent="MiniCubes" unique_id=641377956]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30790392, 0.33790362, 0.22163531)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube20" unique_id=114256578]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube20" unique_id=1503393912]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube20/CollisionShape3D" unique_id=208286685]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube21" type="RigidBody3D" parent="MiniCubes" unique_id=789271009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15572104, 0.33790362, 0.22163531)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube21" unique_id=1310909400]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube21" unique_id=1547291281]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube21/CollisionShape3D" unique_id=832242468]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube22" type="RigidBody3D" parent="MiniCubes" unique_id=1854799972]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33790362, 0.46099028)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube22" unique_id=975051476]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube22" unique_id=403444696]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube22/CollisionShape3D" unique_id=141707780]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube23" type="RigidBody3D" parent="MiniCubes" unique_id=1017904607]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15789694, 0.33790362, 0.46099028)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube23" unique_id=629014392]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube23" unique_id=1094404400]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube23/CollisionShape3D" unique_id=1107771393]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube24" type="RigidBody3D" parent="MiniCubes" unique_id=1400733786]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.3100798, 0.33790362, 0.46099028)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube24" unique_id=734681179]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube24" unique_id=1568392375]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube24/CollisionShape3D" unique_id=1029108755]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube25" type="RigidBody3D" parent="MiniCubes" unique_id=339376793]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.30790392, 0.33790362, 0.46099028)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube25" unique_id=72973086]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube25" unique_id=1789514379]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube25/CollisionShape3D" unique_id=1023315629]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="Cube26" type="RigidBody3D" parent="MiniCubes" unique_id=453298318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15572104, 0.33790362, 0.46099028)
+collision_layer = 3
+mass = 0.1
+script = ExtResource("1_a3v7h")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="MiniCubes/Cube26" unique_id=72811364]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MiniCubes/Cube26" unique_id=100621259]
+shape = SubResource("BoxShape3D_xtb1e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="MiniCubes/Cube26/CollisionShape3D" unique_id=1067370945]
+mesh = SubResource("BoxMesh_jgdxq")
+
+[node name="bottle" parent="." unique_id=409794395 instance=ExtResource("3_hjw3j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9465046, 0.2647716, 1.1920929e-07)
+
+[node name="HUD" type="Control" parent="." unique_id=1191412820]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="HUD" unique_id=1416868457]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -5.0
+offset_top = -11.5
+offset_right = 5.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HUD/CenterContainer" unique_id=1190744213]
+layout_mode = 2
+text = "+"
+label_settings = SubResource("LabelSettings_xd2r4")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="wrench" parent="." unique_id=1389079996 instance=ExtResource("5_hjw3j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3402992, 0.13833976, -0.04949832)

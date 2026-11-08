@@ -1,0 +1,14 @@
+AnimationPlayer
+MeshInstance3D
+CollisionShape3D
+Label
+Panel
+MarginContainer
+ReferenceRect
+Button
+VBoxContainer
+Control
+Container
+RigidBody3D
+CenterContainer
+Node3D
