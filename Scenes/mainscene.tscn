@@ -525,6 +525,9 @@ mesh = SubResource("BoxMesh_jgdxq")
 [node name="bottle" parent="." unique_id=409794395 instance=ExtResource("3_hjw3j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9465046, 0.2647716, 1.1920929e-07)
 
+[node name="wrench" parent="." unique_id=1389079996 instance=ExtResource("5_hjw3j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3402992, 0.13833976, -0.04949832)
+
 [node name="HUD" type="Control" parent="." unique_id=1191412820]
 layout_mode = 3
 anchors_preset = 8
@@ -560,6 +563,3 @@ text = "+"
 label_settings = SubResource("LabelSettings_xd2r4")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="wrench" parent="." unique_id=1389079996 instance=ExtResource("5_hjw3j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3402992, 0.13833976, -0.04949832)
