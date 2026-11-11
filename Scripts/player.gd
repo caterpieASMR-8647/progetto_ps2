@@ -13,6 +13,7 @@ var look_dir: Vector2 # Input direction for look/aim
 
 var holding_distance: float
 var held_object = null
+var mouse_motion : bool = false
 var rotating : bool = false
 var rotate_vector : Vector2
 
@@ -35,6 +36,7 @@ func _ready() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
+		mouse_motion = true
 		look_dir = event.relative * 0.001
 		if mouse_captured:
 			if !rotating:
@@ -136,8 +138,12 @@ func _physics_process(delta: float) -> void:
 		held_object.ray_dir = - held_object_dir.global_basis.z
 		held_object.ray_side = - held_object_dir.global_basis.x
 		if rotating:
-			held_object.rotate_vector = rotate_vector
+			if mouse_motion:
+				held_object.rotate_vector = rotate_vector
+			else:
+				held_object.rotate_vector = Vector2.ZERO
 			rotate_vector = Vector2.ZERO
+			mouse_motion = false
 	
 	_push_away_rigid_bodies()
 	move_and_slide()
