@@ -1,0 +1,6 @@
+#N canvas 960 553 956 466 12;
+#X obj 126 84 r from_gdpd;
+#X obj 126 184 outlet;
+#X obj 126 109 route \$1;
+#X connect 0 0 2 0;
+#X connect 2 0 1 0;

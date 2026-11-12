@@ -563,3 +563,5 @@ text = "+"
 label_settings = SubResource("LabelSettings_xd2r4")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="GdPd" type="GdPd" parent="." unique_id=1097154108]

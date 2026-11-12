@@ -1,0 +1,155 @@
+#!/usr/bin/env python
+import os
+import sys
+import shutil
+
+
+# Update submodules
+#os.system("git submodule update --init --recursive --remote")
+
+# First fix fsqrt in fiddle~.c
+fiddle_file = open("src/libpd/pure-data/extra/fiddle~/fiddle~.c","r")
+fiddle_lines = fiddle_file.readlines()
+fiddle_file.close()
+out_lines = []
+for l in fiddle_lines:
+	if l == "#define flog log\n" :
+		out_lines.append("#include <math.h>\n")
+	out_lines.append(l)
+fiddle_file = open("src/libpd/pure-data/extra/fiddle~/fiddle~.c","w")
+fiddle_file.writelines(out_lines)
+fiddle_file.close()
+
+#Generate liblo headers
+import fileinput
+
+#threadinclude = '#include "lo/lo_serverthread.h"'
+threadinclude = ''
+with open("src/liblo/lo/lo.h.in", "r") as file:
+    filedata = file.read()
+    filedata = filedata.replace("@THREADS_INCLUDE@", threadinclude)
+with open("src/liblo/lo/lo.h", "w") as file:
+    file.write(filedata)
+with open("src/liblo/lo/lo_endian.h.in", "r") as file:
+    filedata = file.read()
+    filedata = filedata.replace("@LO_BIGENDIAN@", "0")
+with open("src/liblo/lo/lo_endian.h", "w") as file:
+    file.write(filedata)
+
+
+env = SConscript("src/godot-cpp/SConstruct")
+
+# For the reference:
+# - CCFLAGS are compilation flags shared between C and C++
+# - CFLAGS are for C-specific compilation flags
+# - CXXFLAGS are for C++-specific compilation flags
+# - CPPFLAGS are for pre-processor flags
+# - CPPDEFINES are for pre-processor defines
+# - LINKFLAGS are for linking flags
+
+env.Append(CPPPATH=['.', 'src/libpd/libpd_wrapper',
+                    'src/libpd/libpd_wrapper/util',
+                    "src/liblo",
+                    'src/libpd/cpp','src/libpd/pure-data/src',  'src/rtaudio'], 
+           CCFLAGS=["-fexceptions"])
+
+env.Append(CFLAGS=['-DUSEAPI_DUMMY', '-DPD', '-DHAVE_UNISTD_H',\
+		'-D_GNU_SOURCE','-DLIBPD_EXTRA', "-DPD_INTERNAL"])
+
+sources = Glob('src/*.cpp') + Glob('src/rtaudio/*.cpp') +\
+		Glob('src/libpd/libpd_wrapper/*.c') +\
+		Glob('src/libpd/libpd_wrapper/util/*.c') +\
+		Glob('src/libpd/pure-data/extra/bob~/bob~.c') +\
+		Glob('src/libpd/pure-data/extra/bonk~/bonk~.c') +\
+		Glob('src/libpd/pure-data/extra/choice/choice.c') +\
+		Glob('src/libpd/pure-data/extra/fiddle~/fiddle~.c') +\
+		Glob('src/libpd/pure-data/extra/loop~/loop~.c') +\
+		Glob('src/libpd/pure-data/extra/lrshift~/lrshift~.c') +\
+		Glob('src/libpd/pure-data/extra/pd~/pd~.c') +\
+		Glob('src/libpd/pure-data/extra/pique/pique.c') +\
+		Glob('src/libpd/pure-data/extra/sigmund~/sigmund~.c') +\
+		Glob('src/libpd/pure-data/extra/stdout/stdout.c') +\
+		Glob('src/libpd/pure-data/src/[mg]_*.c') +\
+		Glob('src/libpd/pure-data/src/x_acoustics.c') +\
+		Glob('src/libpd/pure-data/src/x_arithmetic.c')+\
+		Glob('src/libpd/pure-data/src/x_array.c')+\
+		Glob('src/libpd/pure-data/src/x_connective.c')+\
+		Glob('src/libpd/pure-data/src/x_file.c')+\
+		Glob('src/libpd/pure-data/src/x_gui.c')+\
+		Glob('src/libpd/pure-data/src/x_interface.c')+\
+		Glob('src/libpd/pure-data/src/x_list.c')+\
+		Glob('src/libpd/pure-data/src/x_midi.c')+\
+		Glob('src/libpd/pure-data/src/x_misc.c')+\
+		Glob('src/libpd/pure-data/src/x_net.c')+\
+		Glob('src/libpd/pure-data/src/x_scalar.c')+\
+		Glob('src/libpd/pure-data/src/x_text.c')+\
+		Glob('src/libpd/pure-data/src/x_time.c')+\
+		Glob('src/libpd/pure-data/src/x_vexp.c')+\
+		Glob('src/libpd/pure-data/src/x_vexp_fun.c')+\
+		Glob('src/libpd/pure-data/src/x_vexp_if.c')+\
+		Glob('src/libpd/pure-data/src/d_[acgmorsu]*.c') +\
+		Glob('src/libpd/pure-data/src/d_dac.c') +\
+		Glob('src/libpd/pure-data/src/d_delay.c') +\
+		Glob('src/libpd/pure-data/src/d_fft.c') +\
+		Glob('src/libpd/pure-data/src/d_fft_fftsg.c') +\
+		Glob('src/libpd/pure-data/src/d_filter.c') +\
+		Glob('src/libpd/pure-data/src/s_audio.c') +\
+		Glob('src/libpd/pure-data/src/s_audio_dummy.c') +\
+		Glob('src/libpd/pure-data/src/s_inter.c') +\
+		Glob('src/libpd/pure-data/src/s_inter_gui.c') +\
+		Glob('src/libpd/pure-data/src/s_loader.c') +\
+		Glob('src/libpd/pure-data/src/s_main.c') +\
+		Glob('src/libpd/pure-data/src/s_net.c') +\
+		Glob('src/libpd/pure-data/src/s_path.c')  +\
+		Glob('src/libpd/pure-data/src/s_print.c') +\
+		Glob('src/libpd/pure-data/src/s_utf8.c') +\
+        Glob("src/liblo/src/*.c",\
+               exclude=["src/liblo/src/*test*",\
+                        "src/liblo/src/*.cpp",\
+                        "src/liblo/src/*thread*"])
+
+env.Append(CPPDEFINES=[ 'LO_SO_VERSION={11,1,4}',
+                        'PACKAGE_VERSION=\\"0.31\\"', 'PACKAGE_NAME=\\"liblo\\"',
+                        'PRINTF_LL=""'])
+
+if env["platform"] == "linux":
+	env.Append(CPPDEFINES=['__UNIX_JACK__', 'HAVE_LIBDL', 'HAVE_POLL=1'])
+	env.Append(LIBS=['jack', 'pthread'])
+	env.Append(LDPATH=['/usr/lib/x86_64-linux-gnu'])
+	env.Append(CFLAGS=['-Wno-int-to-pointer-cast', '-Wno-pointer-to-int-cast',
+						'-Wno-discarded-qualifiers',
+						'-fPIC', '-O3', '-ffast-math', '-funroll-loops', 
+						'-fomit-frame-pointer'])
+	env.Append(CXXFLAGS=['-std=c++17'])
+elif env["platform"] == "android":
+	env.Append(CPPDEFINES=['__UNSPECIFIED__', 'HAVE_LIBDL', 'ANDROID',
+                        'HAS_SOCKLEN_T', 'HAVE_POLL=1','HAVE_ENDIAN_H=1'])
+	env.Append(CFLAGS=['-Wno-int-to-pointer-cast', '-Wno-pointer-to-int-cast',
+						'-Wno-ignored-qualifiers','-Wno-implicit-function-declaration',
+						'-fPIC', '-O3', '-ffast-math', '-funroll-loops', 
+						'-fomit-frame-pointer'])
+	env.Append(CXXFLAGS=['-std=c++17'])
+elif env["platform"] == "windows": 
+	env.Append(CPPDEFINES=['NOMINMAX', '__WINDOWS_DS__',
+                            'PD_INTERNAL', 'HAVE_SELECT=1'])
+	env.Append(LIBS=['pthread', 'ws2_32', 'dsound', 'winmm', 'ole32', 'iphlpapi'])
+elif env["platform"] == "macos": 
+	env.Append(CPPDEFINES=['NOMINMAX', '__MACOSX_CORE__', 'PD_INTERNAL'])
+
+if env["platform"] == "macos":
+	library = env.SharedLibrary(
+		"bin/libgdpd.{}.{}.framework/libgdpd.{}.{}".format(
+			env["platform"], env["target"], env["platform"], env["target"]
+		),
+		source=sources,
+	)
+else:
+	library = env.SharedLibrary(
+		"bin/libgdpd{}{}".format(env["suffix"], env["SHLIBSUFFIX"]),
+		source=sources,
+	)
+
+Default(library)
+
+Return('library')
+

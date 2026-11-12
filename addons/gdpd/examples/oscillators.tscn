@@ -1,0 +1,124 @@
+[gd_scene load_steps=2 format=3 uid="uid://dlfiamica4p0h"]
+
+[sub_resource type="GDScript" id="1"]
+script/source = "extends Control
+
+@onready var _gdpd = $GdPd
+
+func _ready():
+	pass
+
+func _process(delta):
+	pass
+
+func _on_Stop_pressed():
+	_gdpd.stop()
+
+func _on_HSlider_value_changed(value):
+	_gdpd.send(\"patch1\", [\"pitch\", value])
+	pass
+
+func _on_gd_pd_got_message(address: String, arguments: Array) -> void:
+	if address==\"patch1\" :
+		if arguments[0]==\"loudness\":
+			$VSlider.value = arguments[1]
+		else :
+			print(\"got message \", address, \" \", arguments)
+
+func _on_start_osc_pressed() -> void:
+	_gdpd.set_mode(0)
+	_gdpd.start()
+
+func _on_start_audio_no_rt_pressed() -> void:
+	_gdpd.set_mode(1)
+	_gdpd.start()
+
+func _on_start_audio_rt_pressed() -> void:
+	_gdpd.set_mode(2)
+	_gdpd.start()
+"
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("1")
+
+[node name="StartOSC" type="Button" parent="."]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 80.0
+offset_right = 176.0
+offset_bottom = 128.0
+text = "Start OSC"
+
+[node name="StartAudioNoRT" type="Button" parent="."]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 80.0
+offset_right = 288.0
+offset_bottom = 128.0
+text = "Start Audio"
+
+[node name="StartAudioRT" type="Button" parent="."]
+layout_mode = 0
+offset_left = 296.0
+offset_top = 80.0
+offset_right = 402.0
+offset_bottom = 128.0
+text = "Start Audio RT"
+
+[node name="Stop" type="Button" parent="."]
+layout_mode = 0
+offset_left = 424.0
+offset_top = 80.0
+offset_right = 527.0
+offset_bottom = 128.0
+text = "Stop"
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 168.0
+offset_right = 231.0
+offset_bottom = 191.0
+text = "Send pitch to patch1"
+
+[node name="HSlider" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 192.0
+offset_right = 405.0
+offset_bottom = 208.0
+max_value = 12.0
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 288.0
+offset_right = 236.0
+offset_bottom = 311.0
+text = "Audio input loudness"
+
+[node name="VSlider" type="VSlider" parent="."]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 248.0
+offset_right = 264.0
+offset_bottom = 352.0
+max_value = 1.0
+step = 0.001
+value = 0.13
+
+[node name="GdPd" type="GdPd" parent="."]
+pd_patch = "res://addons/gdpd/examples/patch1.pd"
+
+[connection signal="pressed" from="StartOSC" to="." method="_on_start_osc_pressed"]
+[connection signal="pressed" from="StartAudioNoRT" to="." method="_on_start_audio_no_rt_pressed"]
+[connection signal="pressed" from="StartAudioRT" to="." method="_on_start_audio_rt_pressed"]
+[connection signal="pressed" from="Stop" to="." method="_on_Stop_pressed"]
+[connection signal="value_changed" from="HSlider" to="." method="_on_HSlider_value_changed"]
+[connection signal="got_message" from="GdPd" to="." method="_on_gd_pd_got_message"]
