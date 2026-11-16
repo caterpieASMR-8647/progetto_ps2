@@ -10,8 +10,11 @@ radius = 0.03
 resource_name = "Material"
 transparency = 4
 cull_mode = 2
-albedo_color = Color(0.9063318, 0.9063318, 0.9063318, 0.1)
-roughness = 0.5
+albedo_color = Color(0.5767, 0.73, 0.511, 0.37254903)
+metallic = 0.25
+metallic_specular = 1.0
+roughness = 0.15
+refraction_scale = 0.0
 
 [sub_resource type="ArrayMesh" id="ArrayMesh_xtb1e"]
 resource_name = "bottle_Cylinder"

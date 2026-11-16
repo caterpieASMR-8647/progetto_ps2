@@ -78,7 +78,7 @@ environment = SubResource("Environment_5lfti")
 transform = Transform3D(0.9659258, -1.4393416e-08, 0.25881904, -0.1830127, 0.70710677, 0.6830127, -0.18301271, -0.7071068, 0.68301266, 0, 0, 0)
 light_color = Color(0.84, 0.82067996, 0.6468, 1)
 shadow_enabled = true
-shadow_bias = 0.05
+shadow_bias = 0.02
 shadow_blur = 0.75
 
 [node name="Cube" type="RigidBody3D" parent="." unique_id=411651589]
@@ -526,7 +526,7 @@ mesh = SubResource("BoxMesh_jgdxq")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9465046, 0.2647716, 1.1920929e-07)
 
 [node name="wrench" parent="." unique_id=1389079996 instance=ExtResource("5_hjw3j")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3402992, 0.13833976, -0.04949832)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.3402992, 0.01668641, -0.04949832)
 
 [node name="HUD" type="Control" parent="." unique_id=1191412820]
 layout_mode = 3
